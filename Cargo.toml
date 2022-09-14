@@ -1,0 +1,27 @@
+[workspace]
+members = ["contracts/*"]
+
+
+[profile.release.package.multisig]
+codegen-units = 1
+incremental = false
+
+[profile.release.package.oracle]
+codegen-units = 1
+incremental = false
+
+[profile.release.package.orderbook]
+codegen-units = 1
+incremental = false
+
+[profile.release.package.token]
+codegen-units = 1
+incremental = false
+
+[profile.release]
+rpath = false
+lto = true
+overflow-checks = true
+opt-level = 3
+debug = false
+debug-assertions = false
