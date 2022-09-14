@@ -36,7 +36,7 @@ pub enum QueryMsg {
     GetCurrentPrice { base_asset: String, quote_asset: String },
     GetCurrentBatchPrices { prices:Vec<PriceResponseMsg> },
     GetOldPrices {base_asset:String, quote_asset:String},
-    //GetCurrentAllPrices { },
+    GetAllCurrentPrices { },
 }
 
 // We define a custom struct for each query response
@@ -58,6 +58,11 @@ pub struct GetCurrentBatchPricesResponse {
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct GetOldPricesResponse {
     pub prices: Vec<(String, Price)>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct GetAllPricesResponse {
+    pub prices: Vec<((String, String), Price)>,
 }
 
 
