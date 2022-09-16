@@ -15,7 +15,6 @@ pub struct Price {
     pub timestamp: u64,
 }
 
-
 pub const CONFIG: Item<Config> = Item::new("config");
 
 //key is base pair, quote pair

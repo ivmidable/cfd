@@ -1,7 +1,7 @@
+use crate::state::Price;
+use cosmwasm_std::Uint128;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use cosmwasm_std::{Addr, Uint128};
-use crate::state::Price;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct PriceMsg {
@@ -24,19 +24,35 @@ pub struct InstantiateMsg {
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub enum ExecuteMsg {
-    UpdateConfig {owner:String},
-    SetSinglePrice {base_asset:String, quote_asset:String, amount:Uint128},
-    SetBatchPrice { prices: Vec<PriceMsg> },
+    UpdateConfig {
+        owner: String,
+    },
+    SetSinglePrice {
+        base_asset: String,
+        quote_asset: String,
+        amount: Uint128,
+    },
+    SetBatchPrice {
+        prices: Vec<PriceMsg>,
+    },
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub enum QueryMsg {
     GetConfig {},
-    GetCurrentPrice { base_asset: String, quote_asset: String },
-    GetCurrentBatchPrices { prices:Vec<PriceResponseMsg> },
-    GetOldPrices {base_asset:String, quote_asset:String},
-    GetAllCurrentPrices { },
+    GetCurrentPrice {
+        base_asset: String,
+        quote_asset: String,
+    },
+    GetCurrentBatchPrices {
+        prices: Vec<PriceResponseMsg>,
+    },
+    GetOldPrices {
+        base_asset: String,
+        quote_asset: String,
+    },
+    GetAllCurrentPrices {},
 }
 
 // We define a custom struct for each query response
@@ -64,5 +80,3 @@ pub struct GetOldPricesResponse {
 pub struct GetAllPricesResponse {
     pub prices: Vec<((String, String), Price)>,
 }
-
-

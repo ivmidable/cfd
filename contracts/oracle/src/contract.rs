@@ -7,8 +7,9 @@ use cw2::set_contract_version;
 
 use crate::error::ContractError;
 use crate::msg::{
-    ExecuteMsg, GetConfigResponse, GetCurrentBatchPricesResponse, GetCurrentPriceResponse,
-    InstantiateMsg, PriceMsg, PriceResponseMsg, QueryMsg, GetOldPricesResponse, GetAllPricesResponse
+    ExecuteMsg, GetAllPricesResponse, GetConfigResponse, GetCurrentBatchPricesResponse,
+    GetCurrentPriceResponse, GetOldPricesResponse, InstantiateMsg, PriceMsg, PriceResponseMsg,
+    QueryMsg,
 };
 use crate::state::{Config, Price, CONFIG, CURRENT_PRICES, OLD_PRICES};
 
@@ -185,7 +186,7 @@ pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
             base_asset,
             quote_asset,
         } => to_binary(&query_old_prices(deps, base_asset, quote_asset)?),
-        QueryMsg::GetAllCurrentPrices {  } => to_binary(&query_all_current_prices(deps)?),
+        QueryMsg::GetAllCurrentPrices {} => to_binary(&query_all_current_prices(deps)?),
     }
 }
 
@@ -234,9 +235,9 @@ fn query_old_prices(
 }
 
 fn query_all_current_prices(deps: Deps) -> StdResult<GetAllPricesResponse> {
-    let res:StdResult<Vec<_>> = CURRENT_PRICES.range(deps.storage, None, None, Order::Ascending).collect();
+    let res: StdResult<Vec<_>> = CURRENT_PRICES
+        .range(deps.storage, None, None, Order::Ascending)
+        .collect();
     let prices = res?;
-    Ok(GetAllPricesResponse {
-        prices
-    })
+    Ok(GetAllPricesResponse { prices })
 }

@@ -1,18 +1,16 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-use cosmwasm_std::{
-    to_binary, Addr, CosmosMsg, CustomQuery, Querier, QuerierWrapper, StdResult, WasmMsg, WasmQuery,
-};
+use cosmwasm_std::{to_binary, Addr, CosmosMsg, StdResult, WasmMsg};
 
-use crate::msg::{ExecuteMsg, QueryMsg};
+use crate::msg::ExecuteMsg;
 
-/// CwTemplateContract is a wrapper around Addr that provides a lot of helpers
+/// OracleContract is a wrapper around Addr that provides a lot of helpers
 /// for working with this.
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct CwTemplateContract(pub Addr);
+pub struct OracleContract(pub Addr);
 
-impl CwTemplateContract {
+impl OracleContract {
     pub fn addr(&self) -> Addr {
         self.0.clone()
     }
